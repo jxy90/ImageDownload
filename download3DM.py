@@ -4,7 +4,7 @@ import asyncio
 import urllib.request
 from bs4 import BeautifulSoup
 
-URL = "http://www.3dmgame.com/zt/201803/3724664.html"
+URL = "https://www.3dmgame.com/bagua/428_16.html"
 STRATPAGE = 2
 ENDPAGE = 60
 FLODER =  URL.split("/")[-1].split(".")[0]
@@ -59,9 +59,13 @@ async def getImg(html,pageIndex):
             
             async with session.get(imageUrl, headers=headers) as r:
                 path = os.path.join(FLODERPATH, fileName)
-                fp = open(path, 'wb')
-                fp.write(await r.read())
-                fp.close()
+                try:
+                    fp = open(path, 'wb')
+                    fp.write(await r.read())
+                    fp.close()
+                except:
+                     print(imageUrl)
+                     print(fileName)
             print(fileName)
             imageindex += 1
 
